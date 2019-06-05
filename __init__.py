@@ -68,7 +68,7 @@ class EditLibraryPanel(bpy.types.Panel):
         layout = self.layout
 
         if context.active_object.instance_collection is not None:
-            file_path = context.active_object.instance_collection.library.filepath
+            file_path = bpy.path.abspath(context.active_object.instance_collection.library.filepath)
 
             layout.operator("object.edit_library", text="Edit Library", icon="LINK_BLEND")
 
