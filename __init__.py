@@ -24,7 +24,7 @@ class EditLibraryOperator(bpy.types.Operator):
         file_path = context.active_object.instance_collection.library.filepath
 
         #open file in new window
-        subprocess.Popen([bpy.app.binary_path, file_path])
+        subprocess.Popen([bpy.app.binary_path, bpy.path.abspath(file_path)])
 
         return {'FINISHED'}
 
