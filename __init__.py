@@ -1,7 +1,7 @@
 bl_info = {
 	"name": "Nexus Edit Library",
 	"author": "Nexus Studio",
-	"version": (0, 1, 0),
+	"version": (0, 1, 1),
 	"blender": (2, 80, 0),
 	"location": "View 3D > N menu",
 	"description": "Reload linked object by button",
