@@ -52,6 +52,28 @@ class ReloadLibraryOperator(bpy.types.Operator):
         return {'FINISHED'}
 
 
+class ReplaceCollectionOperator(bpy.types.Operator):
+    """ You take 2 objects to change the collection: 1 - with which; 2 - on what """
+    bl_idname = "object.replace_collection"
+    bl_label = "Replace Collection"
+
+    def execute(self, context):
+        active_object = bpy.context.active_object
+
+        active_object.select_set(False)
+
+        bpy.context.selected_objects[0].select_set(True)
+        bpy.context.window.view_layer.objects.active = bpy.context.selected_objects[0]
+
+        bpy.ops.object.select_linked(type='DUPGROUP')
+
+        active_object.select_set(True)
+        bpy.context.window.view_layer.objects.active = active_object
+
+        bpy.ops.object.make_links_data(type='DUPLICOLLECTION')
+        return {'FINISHED'}
+
+
 class EditLibraryPanel(bpy.types.Panel):
 
     bl_label = "Nexus Edit Library"
@@ -76,6 +98,8 @@ class EditLibraryPanel(bpy.types.Panel):
         
             layout.operator("object.open_folder_library", text="Open Folder Library", icon="FILE_FOLDER")
             layout.operator("object.reload_library", text="Reload Library", icon="FILE_REFRESH")
+
+            layout.operator("object.replace_collection", text="Replace Collection", icon="CON_SAMEVOL")
         else:
             layout.label(text="No active library!")
 
@@ -84,6 +108,7 @@ classes = (
     EditLibraryOperator,
     OpenFolderLibraryOperator,
     ReloadLibraryOperator,
+    ReplaceCollectionOperator,
     EditLibraryPanel
 )
 
