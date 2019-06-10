@@ -88,20 +88,20 @@ class EditLibraryPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        if hasattr(context.active_object, 'instance_collection'):
+            if context.active_object.instance_collection is not None:
+                file_path = bpy.path.abspath(context.active_object.instance_collection.library.filepath)
 
-        if context.active_object.instance_collection is not None:
-            file_path = bpy.path.abspath(context.active_object.instance_collection.library.filepath)
+                layout.operator("object.edit_library", text="Edit Library", icon="LINK_BLEND")
 
-            layout.operator("object.edit_library", text="Edit Library", icon="LINK_BLEND")
+                layout.label(text=file_path)
+            
+                layout.operator("object.open_folder_library", text="Open Folder Library", icon="FILE_FOLDER")
+                layout.operator("object.reload_library", text="Reload Library", icon="FILE_REFRESH")
 
-            layout.label(text=file_path)
-        
-            layout.operator("object.open_folder_library", text="Open Folder Library", icon="FILE_FOLDER")
-            layout.operator("object.reload_library", text="Reload Library", icon="FILE_REFRESH")
-
-            layout.operator("object.replace_collection", text="Replace Collection", icon="CON_SAMEVOL")
-        else:
-            layout.label(text="No active library!")
+                layout.operator("object.replace_collection", text="Replace Collection", icon="UV_SYNC_SELECT")
+            else:
+                layout.label(text="No active library!")
 
 
 classes = (
