@@ -71,10 +71,12 @@ class ReplaceCollectionOperator(bpy.types.Operator):
         bpy.context.window.view_layer.objects.active = active_object
 
         bpy.ops.object.make_links_data(type='DUPLICOLLECTION')
+
+        bpy.data.objects.remove(active_object)
         return {'FINISHED'}
 
 
-class EditLibraryPanel(bpy.types.Panel):
+class VIEW_3D_PT_EditLibrary(bpy.types.Panel):
 
     bl_label = "Nexus Edit Library"
     bl_space_type = "VIEW_3D"
@@ -109,7 +111,7 @@ classes = (
     OpenFolderLibraryOperator,
     ReloadLibraryOperator,
     ReplaceCollectionOperator,
-    EditLibraryPanel
+    VIEW_3D_PT_EditLibrary
 )
 
 def register():
