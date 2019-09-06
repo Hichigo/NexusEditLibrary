@@ -40,6 +40,18 @@ class OpenFolderLibraryOperator(bpy.types.Operator):
         bpy.ops.wm.path_open(filepath=file_path)
         return {'FINISHED'}
 
+class VIEW3D_OT_CopyFilePath(bpy.types.Operator):
+    bl_idname = "object.copy_file_path"
+    bl_label = "Copy File Path"
+
+    def execute(self, context):
+
+        file_path = os.path.split(context.active_object.instance_collection.library.filepath)[0] # get folder path
+        bpy.context.window_manager.clipboard = file_path
+        self.report({"INFO"}, "PATH COPIED!")
+
+        return {'FINISHED'}
+
 
 class ReloadLibraryOperator(bpy.types.Operator):
     bl_idname = "object.reload_library"
@@ -97,7 +109,9 @@ class VIEW_3D_PT_EditLibrary(bpy.types.Panel):
 
                 layout.operator("object.edit_library", text="Edit Library", icon="LINK_BLEND")
 
-                layout.label(text=file_path)
+                row = layout.row()
+                row.label(text=file_path)
+                row.operator("object.copy_file_path", text="", icon="DUPLICATE")
             
                 layout.operator("object.open_folder_library", text="Open Folder Library", icon="FILE_FOLDER")
                 layout.operator("object.reload_library", text="Reload Library", icon="FILE_REFRESH")
