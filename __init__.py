@@ -29,7 +29,7 @@ class EditLibraryOperator(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class OpenFolderLibraryOperator(bpy.types.Operator):
+class VIEW3D_OT_OpenFolderLibrary(bpy.types.Operator):
     bl_idname = "object.open_folder_library"
     bl_label = "Open Folder Library"
 
@@ -88,7 +88,7 @@ class ReplaceCollectionOperator(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class VIEW_3D_PT_EditLibrary(bpy.types.Panel):
+class VIEW3D_PT_EditLibrary(bpy.types.Panel):
 
     bl_label = "Nexus Edit Library"
     bl_space_type = "VIEW_3D"
@@ -123,10 +123,11 @@ class VIEW_3D_PT_EditLibrary(bpy.types.Panel):
 
 classes = (
     EditLibraryOperator,
-    OpenFolderLibraryOperator,
+    VIEW3D_OT_OpenFolderLibrary,
+    VIEW3D_OT_CopyFilePath,
     ReloadLibraryOperator,
     ReplaceCollectionOperator,
-    VIEW_3D_PT_EditLibrary
+    VIEW3D_PT_EditLibrary
 )
 
 def register():
